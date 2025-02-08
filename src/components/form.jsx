@@ -9,6 +9,7 @@ async function addStory(formData) {
 
 	const title = formData.get("title");
 	const story = formData.get("story");
+	const from = formData.get("owner");
 	const date = formData.get("date");
 
 	const res = await fetch("https://v1.appbackend.io/v1/rows/bkGtYB3YGRjb", {
@@ -16,7 +17,7 @@ async function addStory(formData) {
 		headers: {
 			"Content-Type": "application/json",
 		},
-		body: JSON.stringify([{ title: title, description: story, date: date }]),
+		body: JSON.stringify([{ title: title, description: story, date: date, from: from }]),
 	});
 
 	revalidatePath("/");
@@ -28,28 +29,36 @@ export function Form() {
 			className="mx-4 my-2 p-4 border rounded-lg shadow"
 			action={addStory}>
 			<div className="grid gap-4">
-				<Input
-					isRequired
-					name="title"
-					type="text"
-					label="Activity"
-					labelPlacement="outside"
-					description="Give your story a title"
-					placeholder="Story Title"
-				/>
+				<div className="flex gap-4">
+					<Input
+						isRequired
+						name="title"
+						type="text"
+						label="Title"
+						labelPlacement="outside"
+						placeholder="Story Title"
+					/>
+					<Input
+						isRequired
+						name="owner"
+						type="text"
+						label="From"
+						labelPlacement="outside"
+						placeholder="Your name or your alias"
+					/>
+					<DatePicker
+						isRequired
+						name="date"
+						labelPlacement="outside"
+						label="Date"
+					/>
+				</div>
 				<Textarea
 					isRequired
 					name="story"
 					labelPlacement="outside"
 					label="Story"
-					placeholder="Tell us about your stories today"
-				/>
-				<DatePicker
-					isRequired
-					className="w-64"
-					name="date"
-					labelPlacement="outside"
-					label="Story taken Date"
+					placeholder="Tell us about your stories"
 				/>
 				<div className="flex justify-center">
 					<Button
