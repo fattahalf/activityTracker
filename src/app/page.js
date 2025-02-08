@@ -1,12 +1,14 @@
 import { Navigation } from "@/components/navigation";
 import { Form } from "@/components/form";
+import { Cards } from "@/components/cards";
 
-export default function Page() {
+export default async function Page() {
 	return (
 		<>
 			<Navigation />
-			<main className="flex justify-center my-2">
+			<main>
 				<Form />
+				<Cards />
 			</main>
 		</>
 	);
